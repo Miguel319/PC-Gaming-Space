@@ -13,13 +13,14 @@
 <div class="col-md-5">
   <div class="row animated fadeIn faster">
     <div class="col">
-      <form #form>
+      <form #f="ngForm" (ngSubmit)="guardar(f)">
         <div class="form-group invisible">
           <label>Firebase ID</label>
           <input
             type="text"
             class="form-control"
             name="id"
+            [(ngModel)]="pc.id"
             disabled="disabled"
             placeholder="Firebase ID"
           />
@@ -31,6 +32,7 @@
             type="text"
             class="form-control"
             name="alias"
+            [(ngModel)]="pc.alias"
             placeholder="Alias"
             required
           />
@@ -40,7 +42,8 @@
           <input
             type="text"
             class="form-control"
-            placeholder="cpu"
+            [(ngModel)]="pc.cpu"
+            placeholder="CPU"
             name="cpu"
             required
           />
@@ -51,6 +54,7 @@
             type="text"
             class="form-control"
             name="ram"
+            [(ngModel)]="pc.ram"
             placeholder="RAM"
             required
           />
@@ -61,6 +65,7 @@
             type="text"
             class="form-control"
             name="gpu"
+            [(ngModel)]="pc.gpu"
             placeholder="GPU"
             required
           />
@@ -71,6 +76,7 @@
             type="text"
             class="form-control"
             name="hdd"
+            [(ngModel)]="pc.hdd"
             placeholder="HDD"
             required
           />

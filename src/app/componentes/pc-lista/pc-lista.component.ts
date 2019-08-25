@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PC } from 'src/app/modelos/pc.model';
 
 @Component({
   selector: 'app-pc-lista',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pc-lista.component.css']
 })
 export class PcListaComponent implements OnInit {
+  pcs: PC;
 
   constructor() { }
 
