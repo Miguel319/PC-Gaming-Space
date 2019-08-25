@@ -7,9 +7,10 @@ import { PcComponent } from "./componentes/pc/pc.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { PcsComponent } from './componentes/pcs/pcs.component';
 
 @NgModule({
-  declarations: [AppComponent, PcListaComponent, PcComponent],
+  declarations: [AppComponent, PcListaComponent, PcComponent, PcsComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]

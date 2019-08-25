@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding } from "@angular/core";
 import { PC } from "src/app/modelos/pc.model";
-import { HttpClient } from "selenium-webdriver/http";
 import { PcService } from "src/app/compartido/pc.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-pc-lista",
@@ -21,5 +21,20 @@ export class PcListaComponent implements OnInit {
 
   obtenerPCs() {
     this.pcService.obtenerPCs().subscribe(res => (this.pcs = res));
+  }
+
+  eliminarPC(pc: PC, i: number) {
+    Swal.fire({
+      title: `¿Seguro que quiere eliminar a ${pc.alias}?`,
+      type: "question",
+      showConfirmButton: true,
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        this.pcService
+          .eliminarPC(pc.id)
+          .subscribe(res => this.pcs.splice(i, 1));
+      }
+    });
   }
 }

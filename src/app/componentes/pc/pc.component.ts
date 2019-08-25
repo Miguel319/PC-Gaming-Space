@@ -4,6 +4,7 @@ import { NgForm } from "@angular/forms";
 import { PcService } from "src/app/compartido/pc.service";
 import Swal from "sweetalert2";
 import { Observable } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-pc",
@@ -13,10 +14,22 @@ import { Observable } from "rxjs";
 export class PcComponent implements OnInit {
   pc: PC;
 
-  constructor(private pcService: PcService) {}
+  constructor(private pcService: PcService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.pc = new PC();
+    this.comprobarModo();
+  }
+
+  comprobarModo() {
+    const id = this.route.snapshot.paramMap.get("id");
+
+    if (id !== "nuevo") {
+      this.pcService.obtenerPC(id).subscribe((res: PC) => {
+        this.pc = res;
+        this.pc.id = id;
+      });
+    }
   }
 
   guardar(form: NgForm) {
@@ -49,4 +62,5 @@ export class PcComponent implements OnInit {
       });
     });
   }
+  
 }

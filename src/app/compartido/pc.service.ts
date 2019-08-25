@@ -43,10 +43,7 @@ export class PcService {
   }
 
   obtenerPCs() {
-    return this.http.get(`${this.url}/pcs.json`)
-      .pipe(
-        map(this.crearPCs)
-      )
+    return this.http.get(`${this.url}/pcs.json`).pipe(map(this.crearPCs));
   }
 
   private crearPCs(pcObj: object) {
@@ -54,12 +51,21 @@ export class PcService {
 
     if (pcObj === null) return [];
 
-    Object.keys( pcObj ).forEach(key => {
+    Object.keys(pcObj).forEach(key => {
       const pc: PC = pcObj[key];
       pc.id = key;
       pcs.push(pc);
-    })
+    });
 
     return pcs;
   }
+
+  obtenerPC(id: string) {
+    return this.http.get(`${this.url}/pcs/${id}.json`);
+  }
+
+  eliminarPC(id: string) {
+    return this.http.delete(`${this.url}/pcs/${id}.json`);
+  }
+
 }

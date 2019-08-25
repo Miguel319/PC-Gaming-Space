@@ -1,4 +1,4 @@
-<div class="col-md-4" *ngFor="let pc of pcs">
+<div class="col-md-4 mb-4" *ngFor="let pc of pcs; let i = index">
   <div class="card text-center">
     <div
       class="card-header 
@@ -6,9 +6,14 @@
       d-flex justify-content-between align-items-center card-primary"
     >
       {{ pc.alias }}
-      <!--  <button class="btn btn-danger" (click)="eliminarPc(pc.id)">
-        <i class="far fa-trash-alt"></i>
-      </button>-->
+      <div>
+        <a class="btn btn-info " [routerLink]="['/pc', pc.id]">
+          <i class="d-flex fa fa-pen-alt"></i>
+        </a>
+        <button class="btn btn-danger ml-2" (click)="eliminarPC(pc, i)">
+          <i class="d-flex far fa-trash-alt"></i>
+        </button>
+      </div>
     </div>
     <img [src]="pc.imagenUrl" class="card-img-top" id="imagen" />
     <div class="card-body">
@@ -16,9 +21,6 @@
       <p><b>RAM: </b>{{ pc.ram }}</p>
       <p><b>GPU: </b>{{ pc.gpu }}</p>
       <p><b>Almacenamiento: </b>{{ pc.hdd }}</p>
-      <a [routerLink]="['/pcs/', pc.id]" class="btn btn-info btn-block">
-        Editar PC
-      </a>
     </div>
   </div>
 </div>
