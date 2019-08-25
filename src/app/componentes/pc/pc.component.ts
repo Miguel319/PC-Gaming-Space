@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { PC } from "src/app/modelos/pc.model";
 import { NgForm } from "@angular/forms";
+import { PcService } from "src/app/compartido/pc.service";
 
 @Component({
   selector: "app-pc",
@@ -10,7 +11,7 @@ import { NgForm } from "@angular/forms";
 export class PcComponent implements OnInit {
   pc: PC;
 
-  constructor() {}
+  constructor(private pcService: PcService) {}
 
   ngOnInit() {
     this.pc = new PC();
@@ -18,11 +19,14 @@ export class PcComponent implements OnInit {
 
   guardar(form: NgForm) {
     if (form.invalid) {
-      console.log('Formulario inválido');
+      console.log("Formulario inválido");
       return;
     }
 
-    console.log(form);
-    console.log(this.pc);
+    this.pcService.agregarPC(this.pc).subscribe((res: PC) => {
+      console.log(res);
+      this.pc = res;
+    }),
+      err => console.log(err);
   }
 }
