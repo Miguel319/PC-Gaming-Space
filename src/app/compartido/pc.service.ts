@@ -33,6 +33,33 @@ export class PcService {
 
     delete pcTemp.id;
 
-    return this.http.put(`${this.url}/pcs/${pc.id}.json`, pcTemp);
+    const body = JSON.stringify(pcTemp);
+
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+
+    return this.http.put(`${this.url}/pcs/${pc.id}.json`, body, { headers });
+  }
+
+  obtenerPCs() {
+    return this.http.get(`${this.url}/pcs.json`)
+      .pipe(
+        map(this.crearPCs)
+      )
+  }
+
+  private crearPCs(pcObj: object) {
+    const pcs: PC[] = [];
+
+    if (pcObj === null) return [];
+
+    Object.keys( pcObj ).forEach(key => {
+      const pc: PC = pcObj[key];
+      pc.id = key;
+      pcs.push(pc);
+    })
+
+    return pcs;
   }
 }
