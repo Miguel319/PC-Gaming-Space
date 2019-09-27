@@ -8,9 +8,12 @@ import { AppRoutingModule } from "./app-routing.module";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { PcsComponent } from './componentes/pcs/pcs.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { RegistroComponent } from './componentes/registro/registro.component';
+import { NavComponent } from './componentes/nav/nav.component';
 
 @NgModule({
-  declarations: [AppComponent, PcListaComponent, PcComponent, PcsComponent],
+  declarations: [AppComponent, PcListaComponent, PcComponent, PcsComponent, LoginComponent, RegistroComponent, NavComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
