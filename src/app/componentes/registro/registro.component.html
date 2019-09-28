@@ -1,7 +1,11 @@
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100 p-t-50 p-b-90">
-      <form class="login100-form validate-form flex-sb flex-w">
+      <form
+        #registroForm="ngForm"
+        (ngSubmit)="alRegistrar(registroForm)"
+        class="login100-form validate-form flex-sb flex-w"
+      >
         <span class="login100-form-title p-b-51">
           Crear nueva cuenta
         </span>
@@ -10,8 +14,11 @@
         <div class="wrap-input100 m-b-16">
           <input
             class="input100"
-            type="text"
+            type="email"
             name="email"
+            required
+            email
+            [(ngModel)]="usuario.email"
             placeholder="Email"
           />
 
@@ -23,7 +30,10 @@
           <input
             class="input100"
             type="text"
+            required
+            minlength="2"
             name="nombre"
+            [(ngModel)]="usuario.nombre"
             placeholder="Nombre y apellidos"
           />
 
@@ -35,8 +45,11 @@
           <input
             class="input100"
             type="password"
+            [(ngModel)]="usuario.contra"
+            required
+            minlength="6"
             name="pass"
-            placeholder="Password"
+            placeholder="Contraseña"
           />
           <span class="focus-input100"></span>
         </div>
@@ -62,7 +75,11 @@
         </div>
 
         <div class="container-login100-form-btn m-t-17">
-          <button class="login100-form-btn" type="submit">
+          <button
+            [disabled]="!registroForm.valid"
+            class="login100-form-btn"
+            type="submit"
+          >
             Crear cuenta
           </button>
         </div>
