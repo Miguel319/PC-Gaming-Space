@@ -2,55 +2,130 @@
   <div class="container-login100">
     <div class="wrap-login100 p-t-50 p-b-90">
       <form
-        #registroForm="ngForm"
-        (ngSubmit)="alRegistrar(registroForm)"
+        [formGroup]="registroFormulario"
+        (ngSubmit)="registrar()"
         class="login100-form validate-form flex-sb flex-w"
       >
         <span class="login100-form-title p-b-51">
           Crear nueva cuenta
         </span>
 
-        <!-- <span class="text-danger">El correo es obligatorio</span> -->
-        <div class="wrap-input100 m-b-16">
+        <div class="form-group wrap-input100 m-b-16">
           <input
-            class="input100"
-            type="email"
-            name="email"
-            required
-            email
-            [(ngModel)]="usuario.email"
+            class="input100 form-control"
+            [ngClass]="{
+              'is-invalid':
+                registroFormulario.get('email').errors &&
+                registroFormulario.get('email').touched,
+              'is-valid': !registroFormulario.get('email').errors
+            }"
+            formControlName="email"
             placeholder="Email"
           />
-
+          <div
+            *ngIf="
+              registroFormulario.get('email')?.hasError('required') &&
+              registroFormulario.get('email').touched
+            "
+            class="invalid-feedback"
+          >
+            El email es obligatorio.
+          </div>
+          <div
+            *ngIf="
+              registroFormulario.get('email').hasError('email') &&
+              registroFormulario.get('email').touched
+            "
+            class="invalid-feedback"
+          >
+            El email debe estar en formato: "abc@abc.com".
+          </div>
           <span class="focus-input100"></span>
         </div>
 
-        <!-- <span class="text-danger">El nombre es obligatorio</span> -->
         <div class="wrap-input100 m-b-16">
           <input
-            class="input100"
+            class="input100 form-control"
             type="text"
-            required
-            minlength="2"
-            name="nombre"
-            [(ngModel)]="usuario.nombre"
-            placeholder="Nombre y apellidos"
+            formControlName="nombre"
+            [ngClass]="{
+              'is-invalid':
+                registroFormulario.get('nombre').errors &&
+                registroFormulario.get('nombre').touched,
+              'is-valid': !registroFormulario.get('nombre').errors
+            }"
+            placeholder="Nombre"
           />
 
+          <div
+            *ngIf="registroFormulario.get('nombre').hasError('required')"
+            class="invalid-feedback"
+          >
+            El nombre es obligatorio.
+          </div>
+
+          <div
+            *ngIf="registroFormulario.get('nombre').hasError('minlength')"
+            class="invalid-feedback"
+          >
+            El nombre debe tener al menos dos caracteres.
+          </div>
           <span class="focus-input100"></span>
         </div>
 
-        <!-- <span class="text-danger">La contraseña debe de ser más de 6 letras</span> -->
-        <div class="wrap-input100 m-b-16" data-validate="Password is required">
+        <div class="wrap-input100 m-b-16">
           <input
-            class="input100"
+            class="input100 form-control"
+            type="text"
+            formControlName="apellido"
+            [ngClass]="{
+              'is-invalid':
+                registroFormulario.get('apellido').errors &&
+                registroFormulario.get('apellido').touched,
+              'is-valid': !registroFormulario.get('apellido').errors
+            }"
+            placeholder="Apellido"
+          />
+          <div
+            *ngIf="registroFormulario.get('apellido')?.hasError('required')"
+            class="invalid-feedback"
+          >
+            El apellido es obligatorio.
+          </div>
+          <span class="focus-input100"></span>
+        </div>
+
+        <div class="form-group wrap-input100 m-b-16">
+          <input
+            class="input100 form-control"
             type="password"
-            [(ngModel)]="usuario.contra"
-            required
-            minlength="6"
-            name="pass"
+            [ngClass]="{
+              'is-invalid':
+                registroFormulario.get('password').errors &&
+                registroFormulario.get('password').touched,
+              'is-valid': !registroFormulario.get('password').errors
+            }"
+            formControlName="password"
             placeholder="Contraseña"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              registroFormulario.get('password').touched &&
+              registroFormulario.get('password').hasError('required')
+            "
+          >
+            La contraseña es obligatoria.
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              registroFormulario.get('password').touched &&
+              registroFormulario.get('password').hasError('minlength')
+            "
+          >
+            La contraseña debe tener al menos cinco caracteres.
+          </div>
           <span class="focus-input100"></span>
         </div>
 
@@ -74,9 +149,9 @@
           </div>
         </div>
 
-        <div class="container-login100-form-btn m-t-17">
+        <div class="form-group container-login100-form-btn m-t-17">
           <button
-            [disabled]="!registroForm.valid"
+            [disabled]="registroFormulario.invalid"
             class="login100-form-btn"
             type="submit"
           >

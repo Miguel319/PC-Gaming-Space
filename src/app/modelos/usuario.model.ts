@@ -1,5 +1,6 @@
 export class UsuarioModel {
-    email: string;
-    contra: string;
-    nombre: string;
+  email: string;
+  nombre: string;
+  apellido: string;
+  password: string;
 }

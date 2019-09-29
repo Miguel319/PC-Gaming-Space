@@ -7,7 +7,7 @@ import { map } from "rxjs/operators";
   providedIn: "root"
 })
 export class PcService {
-  url = "https://pc-gaming-space1.firebaseio.com";
+  private url = "https://pc-gaming-space1.firebaseio.com";
 
   constructor(private http: HttpClient) {}
 

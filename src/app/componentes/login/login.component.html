@@ -1,31 +1,81 @@
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100 p-t-50 p-b-90">
-      <form class="login100-form validate-form flex-sb flex-w">
+      <form
+        [formGroup]="loginFormulario"
+        (ngSubmit)="iniciarSesion()"
+        class="login100-form validate-form flex-sb flex-w"
+      >
         <span class="login100-form-title p-b-51">
           Inicio de sesión
         </span>
 
-        <!-- <span class="text-danger">El correo es obligatorio</span> -->
         <div class="wrap-input100 m-b-16">
           <input
-            class="input100"
+            class="input100 form-control"
             type="text"
-            name="username"
-            placeholder="Nombre de usuario"
+            [ngClass]="{
+              'is-invalid':
+                loginFormulario.get('email').errors &&
+                loginFormulario.get('email').touched,
+              'is-valid': !loginFormulario.get('email').errors
+            }"
+            formControlName="email"
+            placeholder="Email"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              loginFormulario.get('email').hasError('required') &&
+              loginFormulario.get('email').touched
+            "
+          >
+            El email es obligatorio.
+          </div>
 
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              loginFormulario.get('email').hasError('email') &&
+              loginFormulario.get('email').touched
+            "
+          >
+            El email debe estar en formato: abc@abc.com
+          </div>
           <span class="focus-input100"></span>
         </div>
 
-        <!-- <span class="text-danger">La contraseña debe de ser más de 6 letras</span> -->
-        <div class="wrap-input100 m-b-16" data-validate="Password is required">
+        <div class="wrap-input100 m-b-16">
           <input
-            class="input100"
+            class="input100 form-control"
             type="password"
-            name="pass"
+            formControlName="password"
+            [ngClass]="{
+              'is-invalid':
+                loginFormulario.get('password').errors &&
+                loginFormulario.get('password').touched,
+              'is-valid': !loginFormulario.get('password').errors
+            }"
             placeholder="Contraseña"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              loginFormulario.get('password').hasError('required') &&
+              loginFormulario.get('password').touched
+            "
+          >
+            La contraseña es obligatoria.
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              loginFormulario.get('password').hasError('minlength') &&
+              loginFormulario.get('password').touched
+            "
+          >
+            La contraseña debe tener al menos cinco caracteres.
+          </div>
           <span class="focus-input100"></span>
         </div>
 
@@ -50,7 +100,11 @@
         </div>
 
         <div class="container-login100-form-btn m-t-17">
-          <button class="login100-form-btn" type="submit">
+          <button
+            [disabled]="loginFormulario.invalid"
+            class="login100-form-btn"
+            type="submit"
+          >
             Ingresar
           </button>
         </div>

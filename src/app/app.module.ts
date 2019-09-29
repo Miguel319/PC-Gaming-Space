@@ -5,7 +5,7 @@ import { AppComponent } from "./app.component";
 import { PcListaComponent } from "./componentes/pc-lista/pc-lista.component";
 import { PcComponent } from "./componentes/pc/pc.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { PcsComponent } from './componentes/pcs/pcs.component';
 import { LoginComponent } from './componentes/login/login.component';
@@ -14,7 +14,7 @@ import { NavComponent } from './componentes/nav/nav.component';
 
 @NgModule({
   declarations: [AppComponent, PcListaComponent, PcComponent, PcsComponent, LoginComponent, RegistroComponent, NavComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent]
 })
