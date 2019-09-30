@@ -33,7 +33,7 @@
         </li>
       </ul>
       <ul class="ml-auto">
-        <li class="nav-item ">
+        <li *ngIf="!estaAutenticado()" class="nav-item ">
           <a
             class="nav-link"
             [routerLink]="['/inicioDeSesion']"
